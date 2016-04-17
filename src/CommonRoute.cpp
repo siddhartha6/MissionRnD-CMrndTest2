@@ -47,9 +47,63 @@ First Island in DTD ie 'D' occurs alphabatically before 'H' and 'Z')
 #include <stdlib.h>
 #include <stdlib.h>
 #include <stdio.h>
-
+#include<string.h>
 
 char * find_common_route(char * hacklist, char *codelist, int *cost){
-	return NULL;
+	if (hacklist == NULL || codelist == NULL)
+	          return NULL;
+	int index1 = 0, index2 = 0;
+	int temp1 = 0, temp2 = 0;
+	int res_index = 0, path_index = 0;
+	int path[10] = { 0 };
+	char *result = (char *)malloc(sizeof(char));
+
+	while (index1 < strlen(hacklist))
+	{
+		for (index2 = 0; index2 < strlen(codelist); index2++)
+		{
+			if (hacklist[index1] == codelist[index2])
+			{ 
+				temp1 = index1;
+				temp2 = index2;
+				while (hacklist[temp1] == codelist[temp2])
+				{
+					path[path_index] = path[path_index]+hacklist[temp1] - 64;
+					result[res_index++] = hacklist[temp1];
+					temp1++;
+					temp2++;
+				}
+				result[res_index] = ' ';
+				path_index++;
+			}
+		}
+		index1 = temp1 + 1;
+	}
+	int min = path[0];
+	int space = 0;
+	for (index1 = 1; index1 < path_index; index1++)
+	{
+		if (min > path[index1]){
+			min = path[index1];
+			space = index1;
+		}
+	}
+	*cost = min;
+	index1 = 0;
+	index2 = 0;
+	char *res = (char *)malloc(sizeof(char));
+	while (space != 0)
+	{
+		if (result[index2] != ' '){
+			res[index1] = result[index2];
+			index1++;
+			index2++;
+		}
+		if (result[index2] == ' ')
+		{
+			space--;
+		}
+	}
+	return res;
 }
 

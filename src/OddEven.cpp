@@ -39,6 +39,35 @@ struct oddevennode{
 };
 
 int * oddeven_sll(struct oddevennode *head){
+   
+	if (head == NULL)
+		return NULL;
 
-	return NULL;
+	int *count = (int *)malloc(sizeof(int));
+	int even_count = 0, odd_count = 0;
+    struct oddevennode *oddnode = NULL;
+	struct oddevennode *evennode = NULL;
+	oddnode = (struct oddevennode *) malloc(sizeof(struct oddevennode));
+	evennode = (struct oddevennode *) malloc(sizeof(struct oddevennode));
+
+	while (head != NULL)
+	{
+
+		if (head->data % 2 != 0){
+			oddnode->random->data = head->data;
+			count[0] = ++odd_count;
+			
+			oddnode->random->next = NULL;
+			oddnode->random = oddnode->random->next;
+		}
+		if (head->data % 2 == 0){
+			evennode->random->data = head->data;
+			count[1] = ++even_count;
+			evennode->random->next = NULL;
+			evennode->random = evennode->random->next;
+		}
+
+		head = head->next;
+	}
+	return count;
 }
